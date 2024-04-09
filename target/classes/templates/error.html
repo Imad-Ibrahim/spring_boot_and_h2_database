@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+    <div class="row" style="margin-top: 3rem">
+        <div class="col-md-8 mx-auto">
+            <div class="card border-secondary text-white bg-secondary mb-3 maxWidth">
+                <h1 style="padding: 0.5em; line-height: 2em"><span th:text="${errorMessage}"/></h1>
+                <br>
+                <a class="btn btn-danger" onclick="history.back()"><span th:text="#{back}"></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

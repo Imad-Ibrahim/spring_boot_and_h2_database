@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{indexTitle}"></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row" style="margin-top: 1rem">
+        <div class="col-md-12 mx-auto">
+            <div class="card btn-danger text-white bg-secondary mb-3 maxWidth">
+                <div class="card-header" style="text-align: center"><span th:text="#{cardHeader}"></span></div>
+                <div class="card-header">
+                    <label style="margin-bottom: 0.5em" for="locales" th:text="#{lang.change}"></label>
+                    <select  class="form-select" name="lang" id="locales">
+                        <option value="en" th:text="#{lang.en}" th:selected="${#locale.language == 'en'}"></option>
+                        <option value="ar" th:text="#{lang.ar}"  th:selected="${#locale.language == 'ar'}"></option>
+                    </select>
+                    <br>
+                </div>
+                <div class="card-body">
+                    <h4 th:text="#{searchCriteriaHeader}"></h4>
+                    <ul class="list-group list-group-flush">
+                        <li style="margin-left: 2em" th:text="#{optionOne}"></li>
+                        <li style="margin-left: 2em" th:text="#{optionTwo}"></li>
+                        <li style="margin-left: 2em" th:text="#{optionThree}"></li>
+                    </ul>
+                    <br>
+                    <form th:action="@{/filter}" method="post">
+                        <div class="input-group mb-12">
+                            <input type="text" class="form-control" id="country"  name="country" th:placeholder="#{countryField}">
+                            <input type="date" class="form-control" id="dFrom" name="dFrom">
+                            <input type="date" class="form-control" id="dTo" name="dTo">
+                            <input type="number" class="form-control" id="capacity"  name="capacity" th:placeholder="#{capacityField}">
+                            <input type="number" class="form-control" id="totalPointsFrom"  name="totalPointsFrom" th:placeholder="#{totalPointsFromField}">
+                            <input type="number" class="form-control" id="totalPointsTo"  name="totalPointsTo" th:placeholder="#{totalPointsToField}">
+                        </div><br>
+                        <input class="form-check-input" type="checkbox" name="searchOption" value="firstSemiFinal" id="firstSemiFinal">
+                        <label for="firstSemiFinal" th:text="#{firstSemiFinal}"></label><br>
+                        <input class="form-check-input" type="checkbox" name="searchOption" value="secondSemiFinal" id="secondSemiFinal">
+                        <label for="secondSemiFinal" th:text="#{secondSemiFinal}"></label><br>
+                        <input class="form-check-input" type="checkbox" name="searchOption" value="final" id="final">
+                        <label for="final" th:text="#{final}"></label>
+                        <div class="col-md-5 mx-auto" style="margin-top: 1em">
+                            <div class="input-group mb-12">
+                                <input type="submit" class="btn btn-success" id="submit" th:value="#{filter}">
+                                <a th:href="@{/mostRecent}" class="btn btn-primary" th:text="#{tenMostRecent}"></a>
+                                <a th:href="@{/}" class="btn btn-info" th:text="#{unfiltered}"></a>
+                                <input type="reset" class="btn btn-danger" id="reset" th:value="#{reset}">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <table class="table marginTop" aria-describedby="table-description">
+                <thead>
+                <tr th:if="${!entrants.empty || !entrantsFullSearch.empty}" class="table-secondary">
+                    <br><h1 th:text="#{indexTitle}"></h1>
+                    <th th:text="#{host_City}"></th>
+                    <th th:text="#{host_Country}"></th>
+                    <th th:text="#{date_of_final}"></th>
+                    <th th:text="#{section}"></th>
+                    <th th:text="#{artistCountry}"></th>
+                    <th th:text="#{total_points}"></th>
+                    <th th:text="#{actions}"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${entrants.empty && entrantsFullSearch.empty}">
+                    <td th:text="#{noEntrantsFound}"></td>
+                </tr>
+                <tr th:if="${!entrants.empty}" th:each="entrant : ${entrants}">
+                    <td><span th:text="${entrant.hostCity}"> </span></td>
+                    <td><span th:text="${entrant.hostCountry}"></span></td>
+                    <td><span th:text="${#calendars.format(entrant.dateOfFinal, 'dd MMMM yyyy')}"></span></td>
+                    <td><span th:text="${entrant.section}"></span></td>
+                    <td><span th:text="${entrant.artistCountry}"></span></td>
+                    <td><span th:text="${#numbers.formatInteger(entrant.totalPoints,0)}"></span></td>
+                    <td><a th:href="@{/view/{id}(id=${entrant.id})}"><span th:text="#{view}"></span></a>
+                    <a th:href="@{/edit/{id}(id=${entrant.id})}"><span th:text="#{edit}"></span></a></td>
+                </tr>
+
+                <tr th:if="${!entrantsFullSearch.empty}" th:each="e : ${entrantsFullSearch}">
+                    <td><span th:text="${e.entrant.hostCity}"> </span></td>
+                    <td><span th:text="${e.entrant.hostCountry}"></span></td>
+                    <td><span th:text="${#calendars.format(e.entrant.dateOfFinal,'dd MMMM yyyy')}"></span></td>
+                    <td><span th:text="${e.entrant.section}"></span></td>
+                    <td><span th:text="${e.entrant.artistCountry}"></span></td>
+                    <td><span th:text="${#numbers.formatInteger(e.entrant.totalPoints,0)}"></span></td>
+                    <td><a th:href="@{/view/{id}(id=${e.entrant.id})}"><span th:text="#{view}"></span></a>
+                    <a th:href="@{/edit/{id}(id=${e.entrant.id})}"><span th:text="#{edit}"></span></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            let selectedOption = $('#locales').val();
+            if (selectedOption != ''){
+                window.location.replace('?lang=' + selectedOption);
+            }
+        });
+    });
+</script>

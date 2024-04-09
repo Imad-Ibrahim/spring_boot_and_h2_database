@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{viewTitle}"></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row" style="margin-top: 1rem">
+        <div class="col-md-6 mx-auto">
+            <div class="card border-secondary mb-3">
+                <h3 class="card-header" th:text="#{viewCardHeader1}"></h3>
+                <img th:src="@{'../assets/images/' + ${entrant.get().entrant.logo}}"/>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" style="font-size: large"><span style="font-weight: bold" th:text="#{song}"></span> <span th:text="${entrant.get().entrant.song}"></span></li>
+                    <li class="list-group-item" style="font-size: large"><span style="font-weight: bold" th:text="#{host_City}"></span> <span th:text="${entrant.get().entrant.hostCity}"></span></li>
+                    <li class="list-group-item" style="font-size: large"><span style="font-weight: bold" th:text="#{host_Country}"></span> <span th:text="${entrant.get().entrant.hostCountry}"></span></li>
+                    <li class="list-group-item" style="font-size: large"><span style="font-weight: bold" th:text="#{date_of_final}"></span> <span th:text="${#calendars.format(entrant.get().entrant.dateOfFinal,'dd MMMM yyyy')}"></span></li>
+                    <li class="list-group-item" style="font-size: large"><span style="font-weight: bold" th:text="#{section}"></span> <span th:text="${entrant.get().entrant.section}"></span></li>
+                    <li class="list-group-item" style="font-size: large"><span style="font-weight: bold" th:text="#{artist}"></span> <span th:text="${entrant.get().entrant.artist}"></span></li>
+                    <li class="list-group-item" style="font-size: large"><span style="font-weight: bold" th:text="#{artist_country}"></span> <span th:text="${entrant.get().entrant.artistCountry}"></span></li>
+                    <li class="list-group-item" style="font-size: large"><span style="font-weight: bold" th:text="#{total_points}"></span> <span th:text="${#numbers.formatInteger(entrant.get().entrant.totalPoints,0)}"></span></li>
+                    <li class="list-group-item" style="font-size: large"><span style="font-weight: bold" th:text="#{running_order}"></span> <span th:text="${#numbers.formatInteger(entrant.get().entrant.runningOrder,0)}"></span></li>
+                    <li class="list-group-item" style="font-size: large"><span style="font-weight: bold" th:text="#{rank}"></span> <span th:text="${#numbers.formatInteger(entrant.get().entrant.rank,0)}"></span></li>
+                    <li class="list-group-item" style="font-size: large"><span style="font-weight: bold" th:text="#{qualified}"></span> <span th:text="${entrant.get().entrant.qualified}"></span></li>
+                </ul>
+            </div>
+        </div>
+            <br>
+        <div class="col-md-6 mx-auto">
+            <div class="card border-secondary mb-3">
+                <h3 class="card-header" th:text="#{viewCardHeader2}"></h3>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" style="font-size: large"><span style="font-weight: bold" th:text="#{venueName}"></span> <span th:text="${entrant.get().venue.name}"></span></li>
+                    <li class="list-group-item" style="font-size: large"><span style="font-weight: bold" th:text="#{venueCapacity}"></span> <span th:text="${#numbers.formatInteger(entrant.get().venue.capacity, 0)}"></span></li>
+                    <li class="list-group-item" style="font-size: large"><span style="font-weight: bold" th:text="#{venueNote}"></span> <span th:text="${entrant.get().venue.note}"></span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4 mx-auto">
+            <div class="card border-secondary mb-3">
+                <a th:href="@{/}" class="btn btn-danger"><span th:text="#{back}"></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>b

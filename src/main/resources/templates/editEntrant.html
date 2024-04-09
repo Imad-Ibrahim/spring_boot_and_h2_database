@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{editTitle}"></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row" style="margin-top: 1rem">
+        <div class="col-md-8 mx-auto">
+            <div class="card border-secondary text-white bg-secondary mb-3 maxWidth">
+                <div class="card-header"><span th:text="#{editCardHeader}"></span></div>
+                <div class="card-body">
+                    <form th:action="@{/editEntrant}" th:object="${entrant}" method="post">
+                        <fieldset>
+                            <span style="font-size: xxx-large" th:text="#{viewCardHeader1}"></span>
+                            <div th:if="${#fields.hasAnyErrors()}">
+                                <ul class="list-group list-group-flush">
+                                    <li style="margin-left: 2em; color:#ff2a2a" th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+                                </ul>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" id="EntrantID" name="EntrantID" th:field="${entrant.id}" readonly/>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" id="venueID" name="venueID" th:field="${entrant.venueID}" readonly/>
+                            </div>
+                            <div class="form-group">
+                                <label for="hostCity" class="form-label mt-2" th:text="#{host_City}"></label>
+                                <input type="text" class="form-control" id="hostCity" name="hostCity" th:field="${entrant.hostCity}" th:placeholder="#{placeholder_host_City}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="dateOfFinal" class="form-label mt-2" th:text="#{date_of_final}"></label>
+                                <input type="date" class="form-control" id="dateOfFinal" name="dateOfFinal" th:field="${entrant.dateOfFinal}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="hostCountry" class="form-label mt-2" th:text="#{host_Country}"></label>
+                                <input type="text" class="form-control" id="hostCountry" name="hostCountry" th:field="${entrant.hostCountry}" th:placeholder="#{placeholder_host_Country}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="section" class="form-label mt-2" th:text="#{section}"></label>
+                                <input type="text" class="form-control" id="section" name="section" th:field="${entrant.section}" th:placeholder="#{placeholder_section}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="artist" class="form-label mt-2" th:text="#{artist}"></label>
+                                <input type="text" class="form-control" id="artist" name="artist" th:field="${entrant.artist}" th:placeholder="#{placeholder_artist}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="song" class="form-label mt-2" th:text="#{song}"></label>
+                                <input type="text" class="form-control" id="song" name="song" th:field="${entrant.song}" th:placeholder="#{placeholder_song}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="artistCountry" class="form-label mt-2" th:text="#{artist_country}"></label>
+                                <input type="text" class="form-control" id="artistCountry" name="artistCountry" th:field="${entrant.artistCountry}" th:placeholder="#{placeholder_artist_country}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="runningOrder" class="form-label mt-2" th:text="#{running_order}"></label>
+                                <input type="number" class="form-control" id="runningOrder" name="runningOrder" th:field="${entrant.runningOrder}" th:placeholder="#{placeholder_running_order}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="totalPoints" class="form-label mt-2" th:text="#{total_points}"></label>
+                                <input type="number" class="form-control" id="totalPoints" name="totalPoints" th:field="${entrant.totalPoints}" th:placeholder="#{placeholder_total_points}" readonly/>
+                            </div>
+                            <div class="form-group">
+                                <label for="rank" class="form-label mt-2" th:text="#{rank}"></label>
+                                <input type="number" class="form-control" id="rank" name="rank" th:field="${entrant.rank}" th:placeholder="#{placeholder_rank}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="qualified" class="form-label mt-2" th:text="#{qualified}"></label>
+                                <input type="text" class="form-control" id="qualified" name="qualified" th:field="${entrant.qualified}" th:placeholder="#{placeholder_qualified}" />
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" id="logo" name="logo" th:field="${entrant.logo}" readonly/>
+                            </div>
+                            <br>
+                            <input type="submit" th:value="#{save}" class="btn btn-success">
+                            <a th:href="@{/}" class="btn btn-danger"><span th:text="#{cancel}"></span></a>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
